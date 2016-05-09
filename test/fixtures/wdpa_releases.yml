@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  valid_from: 2016-05-09 12:15:46
+  valid_to: 2016-05-09 12:15:46
+
+two:
+  name: MyText
+  valid_from: 2016-05-09 12:15:46
+  valid_to: 2016-05-09 12:15:46
