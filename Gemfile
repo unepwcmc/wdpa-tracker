@@ -17,6 +17,10 @@ gem 'turbolinks'
 gem 'devise', '~> 4.1.0'
 gem 'bcrypt', '~> 3.1.7'
 
+# Testing
+gem 'mocha', '~> 1.1.0'
+gem 'factory_girl', '~> 4.7.0'
+
 # Configuration and deployment
 gem 'dotenv-rails', '~> 2.1.1'
 
