@@ -5,7 +5,6 @@ gem 'rails', '4.2.5.1'
 
 # DB
 gem 'pg', '~> 0.18.4'
-gem 'paper_trail', '~> 5.0.1'
 
 # Frontend
 gem 'sass-rails', '~> 5.0'
@@ -27,6 +26,5 @@ end
 
 group :development do
   gem 'web-console', '~> 2.0'
-  gem 'spring'
 end
 

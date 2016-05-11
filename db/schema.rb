@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160509113440) do
+ActiveRecord::Schema.define(version: 20160511101558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,26 +54,23 @@ ActiveRecord::Schema.define(version: 20160509113440) do
     t.integer  "wdpa_id"
     t.text     "status"
     t.integer  "designation_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "wdpa_release_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   add_index "protected_areas", ["designation_id"], name: "index_protected_areas_on_designation_id", using: :btree
   add_index "protected_areas", ["status"], name: "index_protected_areas_on_status", using: :btree
   add_index "protected_areas", ["wdpa_id"], name: "index_protected_areas_on_wdpa_id", using: :btree
-  add_index "protected_areas", ["wdpa_release_id"], name: "index_protected_areas_on_wdpa_release_id", using: :btree
 
-  create_table "versions", force: :cascade do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
+  create_table "protected_areas_wdpa_releases", force: :cascade do |t|
+    t.integer  "protected_area_id"
+    t.integer  "wdpa_release_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+  add_index "protected_areas_wdpa_releases", ["protected_area_id"], name: "index_protected_areas_wdpa_releases_on_protected_area_id", using: :btree
+  add_index "protected_areas_wdpa_releases", ["wdpa_release_id"], name: "index_protected_areas_wdpa_releases_on_wdpa_release_id", using: :btree
 
   create_table "wdpa_releases", force: :cascade do |t|
     t.text     "name"
@@ -87,4 +84,6 @@ ActiveRecord::Schema.define(version: 20160509113440) do
   add_foreign_key "countries_protected_areas", "protected_areas"
   add_foreign_key "designations", "designation_types"
   add_foreign_key "protected_areas", "designations"
+  add_foreign_key "protected_areas_wdpa_releases", "protected_areas"
+  add_foreign_key "protected_areas_wdpa_releases", "wdpa_releases"
 end
