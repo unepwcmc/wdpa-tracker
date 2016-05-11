@@ -7,6 +7,6 @@ class WdpaRelease < ActiveRecord::Base
   end
 
   def valid_on?(datetime)
-    self.valid_from <= datetime && self.valid_to > datetime
+    datetime.between?(self.valid_from, self.valid_to)
   end
 end
