@@ -1,6 +1,6 @@
 require 'csv'
 
-module Importers::Csv
+module CsvImporter
   def self.import(path, wdpa_release=nil)
     wdpa_release = detect_release(path) unless wdpa_release
 
@@ -9,9 +9,10 @@ module Importers::Csv
         protected_area = find_protected_area(row[:wdpaid])
         next if protected_area.nil?
 
-        protected_area.wdpa_releases << wdpa_release
+        protected_area.name          = row[:name] || protected_area.name
         protected_area.countries     = find_countries(row[:iso3])
         protected_area.designation   = find_designation(row[:desig_eng], row[:desig_type])
+        protected_area.wdpa_releases << wdpa_release
         protected_area.save!
       end
     end
@@ -22,10 +23,11 @@ module Importers::Csv
     ProtectedArea.find_or_initialize_by(wdpa_id: wdpa_id)
   end
 
+  ABOVE_NATIONAL_JURISDICTION = "ABNJ"
   def self.find_countries(isos3)
-    return [] if isos3.blank?
+    return [] if isos3.blank? || isos3 == ABOVE_NATIONAL_JURISDICTION
 
-    isos3.split(";").map do |iso3|
+    isos3.split(/[,;]/).map do |iso3|
       Country.find_or_initialize_by(iso3: iso3)
     end
   end

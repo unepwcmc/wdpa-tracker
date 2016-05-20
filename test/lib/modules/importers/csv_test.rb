@@ -10,7 +10,7 @@ class ImportersCsvTest < ActiveSupport::TestCase
     wdpa_release = FactoryGirl.create(:wdpa_release)
     CSV.stubs(:foreach).multiple_yields([CSV_CONTENT[0]], [CSV_CONTENT[1]])
 
-    Importers::Csv.import(path, wdpa_release)
+    CsvImporter.import(path, wdpa_release)
 
     assert ProtectedArea.find_by_wdpa_id(123), "pa with 123 not found"
     assert ProtectedArea.find_by_wdpa_id(234), "pa with 234 not found"
@@ -21,7 +21,7 @@ class ImportersCsvTest < ActiveSupport::TestCase
     wdpa_release = FactoryGirl.create(:wdpa_release)
     CSV.stubs(:foreach).multiple_yields([CSV_CONTENT[0]], [CSV_CONTENT[1]])
 
-    Importers::Csv.import(path, wdpa_release)
+    CsvImporter.import(path, wdpa_release)
 
     assert_equal [wdpa_release], ProtectedArea.find_by_wdpa_id(123).wdpa_releases
     assert_equal [wdpa_release], ProtectedArea.find_by_wdpa_id(234).wdpa_releases
@@ -34,7 +34,7 @@ class ImportersCsvTest < ActiveSupport::TestCase
 
     CSV.stubs(:foreach).multiple_yields([CSV_CONTENT[0]], [CSV_CONTENT[1]])
 
-    Importers::Csv.import(path, wdpa_release)
+    CsvImporter.import(path, wdpa_release)
 
     assert_equal [country], ProtectedArea.find_by_wdpa_id(123).countries
     assert_equal [country], ProtectedArea.find_by_wdpa_id(234).countries
@@ -49,7 +49,7 @@ class ImportersCsvTest < ActiveSupport::TestCase
 
     CSV.stubs(:foreach).multiple_yields([CSV_CONTENT[0]], [CSV_CONTENT[1]])
 
-    Importers::Csv.import(path, wdpa_release)
+    CsvImporter.import(path, wdpa_release)
 
     assert_equal designation, ProtectedArea.find_by_wdpa_id(123).designation
     assert_equal designation, ProtectedArea.find_by_wdpa_id(234).designation
