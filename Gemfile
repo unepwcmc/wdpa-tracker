@@ -5,6 +5,8 @@ gem 'rails', '4.2.5.1'
 
 # DB
 gem 'pg', '~> 0.18.4'
+gem 'gdal', '~> 1.0.0'
+
 
 # Frontend
 gem 'sass-rails', '~> 5.0'
@@ -22,7 +24,12 @@ gem 'mocha', '~> 1.1.0'
 gem 'factory_girl', '~> 4.7.0'
 
 # Configuration and deployment
-gem 'dotenv-rails', '~> 2.1.1'
+gem 'dotenv-rails', '~> 2.1.1', :require => 'dotenv/rails-now'
+
+# Background tasks
+gem 'sidekiq', '~> 4.1.2'
+gem 'aws-sdk', '~> 2'
+gem 'sidetiq', '~> 0.7.0'
 
 group :development, :test do
   gem 'byebug'
