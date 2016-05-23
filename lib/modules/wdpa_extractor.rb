@@ -48,7 +48,6 @@ module WdpaExtractor
 
   def self.wdpa_tables path
     ogr_info = OgrInfo.new(path)
-    p ogr_info.layers
     [ogr_info.layers_matching(/point/i).first, ogr_info.layers_matching(/poly/i).first]
   end
 end
