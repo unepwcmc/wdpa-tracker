@@ -1,7 +1,7 @@
 require 'csv'
 require 'test_helper'
 
-class ImportersCsvTest < ActiveSupport::TestCase
+class CsvImporterTest < ActiveSupport::TestCase
   CSV_CONTENT = [{wdpaid: "123", iso3: "CIV", desig_eng: "National Park", desig_type: "National"},
                  {wdpaid: "234", iso3: "CIV", desig_eng: "National Park", desig_type: "National"}]
 
