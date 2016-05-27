@@ -30,4 +30,16 @@ class ReservationServiceTest < ActiveSupport::TestCase
                 51, 52, 53, 54, 55, 56, 57]
     assert_equal expected, ReservationService.request(20)
   end
+
+  test "request(amount) removes the temporarily reserved WDPAIDs" do
+    (1..10).each  { |wdpa_id| ProtectedArea.create(wdpa_id: wdpa_id) }
+    (15..20).each { |wdpa_id| ProtectedArea.create(wdpa_id: wdpa_id) }
+    (30..50).each { |wdpa_id| ProtectedArea.create(wdpa_id: wdpa_id) }
+    TemporaryReservationRegistry.stubs(:get).returns([11, 12, 13, 14])
+
+    expected = [21, 22, 23, 24, 25, 26, 27, 28, 29,
+                51, 52, 53, 54, 55, 56, 57,
+                58, 59, 60, 61]
+    assert_equal expected, ReservationService.request(20)
+  end
 end
