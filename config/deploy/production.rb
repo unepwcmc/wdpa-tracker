@@ -1,10 +1,10 @@
 set :stage, :production
 
-server "web-production-linode.protectedplanet.net", user: 'wcmc', roles: %w{web}
-server "db-production-linode.protectedplanet.net", user: 'wcmc', roles: %w{db}, :no_release => true
+server "web.pp-production.linode.protectedplanet.net", user: 'wcmc', roles: %w{web}
+
 
 set :application, "wdpa-tracker"
-set :server_name, "web-production-linode.protectedplanet.net"
+set :server_name, "web.pp-production.linode.protectedplanet.net"
 set :sudo_user, "wcmc"
 set :app_port, "80"
 

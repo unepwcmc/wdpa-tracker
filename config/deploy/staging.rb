@@ -1,7 +1,6 @@
 set :stage, :staging
 
 server "web.pp-staging.linode.protectedplanet.net", user: 'wcmc', roles: %w{web}
-server "db.pp-staging.linode.protectedplanet.net", user: 'wcmc', roles: %w{db}, :no_release => true
 
 set :application, "wdpa-tracker"
 set :server_name, "web.pp-staging.linode.protectedplanet.net"
