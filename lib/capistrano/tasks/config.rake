@@ -12,7 +12,7 @@ username: #{fetch(:db_user)}
 password: #{fetch(:db_pass)}
 host: #{fetch(:db_host)}
 EOF
-  on roles(:app) do
+  on roles(:web) do
      execute "mkdir -p #{shared_path}/config"
      upload! StringIO.new(setup_config), "#{shared_path}/config/database.yml"
     end
@@ -58,7 +58,7 @@ location @503 {
 }
 EOF
 
-  on roles(:app) do
+  on roles(:web) do
      execute "sudo mkdir -p /etc/nginx/sites-available"
      upload! StringIO.new(vhost_config), "/tmp/vhost_config"
      execute "sudo mv /tmp/vhost_config /etc/nginx/sites-available/#{fetch(:application)}"

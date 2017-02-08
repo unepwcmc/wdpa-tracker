@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.7.2'
+lock '3.6.0'
 
 set :application, 'wdpa-tracker'
 set :repo_url, 'git@github.com:unepwcmc/wdpa-tracker.git'
@@ -13,8 +13,8 @@ set :deploy_user, 'wcmc'
 set :deploy_to, "/home/#{fetch(:deploy_user)}/#{fetch(:application)}"
 
 # Default value for :scm is :git
-set :scm, :git
 set :scm_username, "unepwcmc-read"
+set :scm, :git
 
 set :rvm_type, :user
 set :rvm_ruby_version, '2.1.2'
