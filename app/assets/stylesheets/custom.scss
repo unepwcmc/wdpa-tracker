@@ -1,0 +1,20 @@
+@import "utilities/bem";
+
+@include b(map) {
+  height: 440px;
+}
+
+@include b(information) {
+  @include e(row) {
+    font-family: 'MuseoSlab';
+  }
+
+  @include e(value) {
+    padding: .75rem 1rem;
+    padding-left: 0;
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}
