@@ -1,0 +1,27 @@
+<div class="u-only-desktop navbar__element navbar__element--push-right"><%= link_to 'About', protected_planet_path(:about) %></div>
+<div class="u-only-desktop navbar__element"><%= link_to 'Updates & News', protected_planet_path(:updates) %></div>
+<div class="u-only-desktop navbar__element">
+  <a href="<%= protected_planet_path(:resources) %>">Resources</a>
+</div>
+<div class="u-only-desktop navbar__element"><%= link_to 'Terms & Conditions', protected_planet_path(:terms) %></div>
+
+<div class="js-dropdown u-only-desktop navbar__element">
+  <button class="js-trigger">
+    Thematic Areas <i class="fa fa-chevron-down"></i>
+  </button>
+
+  <div class="u-hide js-target dropdown">
+    <div class="dropdown__inner">
+      <a class="dropdown__element" href="<%= protected_planet_path(:wdpa_page) %>">WDPA</a>
+      <a class="dropdown__element" href="http://parcc.protectedplanet.net/">PARCC</a>
+      <a class="dropdown__element" href="http://www.iccaregistry.org">ICCA</a>
+      <a class="dropdown__element" href="<%= protected_planet_path(:pame_page) %>">PAME</a>
+      <a class="dropdown__element" href="<%= protected_planet_path(:connectivity_page) %>">Connectivity Conservation</a>
+      <a class="dropdown__element" href="https://www.iucn.org/theme/protected-areas/our-work/green-list">Green List</a>
+    </div>
+  </div>
+</div>
+
+<div class="<%= bem("navbar__element", "with-separator", "bold") %> u-only-desktop">
+  <a href="<%= protected_planet_path(:root) %>" class="link-with-icon link-with-icon--no-color"> <i class="fa fa-search"></i> Search</a>
+</div>

@@ -1,0 +1,26 @@
+<div class="mobile-menu__element">
+  <%= link_to 'About', protected_planet_path(:about), class: "mobile-menu__element-button" %>
+</div>
+
+<div class="mobile-menu__element">
+  <%= link_to 'Terms & Conditions', protected_planet_path(:terms), class: "mobile-menu__element-button" %>
+</div>
+
+<% if @wdpa_page.present? %>
+  <div class="mobile-menu__element js-expandable-section">
+    <button class="mobile-menu__element-button mobile-menu__switch js-trigger js-switch is-closed">
+      Thematic Areas
+    </button>
+
+    <div class="u-hide js-target mobile-menu__subelement">
+      <div class="dropdown__inner">
+        <a class="dropdown__element" href="<%= protected_planet_path(:wdpa_page) %>">WDPA</a>
+        <a class="dropdown__element" href="http://parcc.protectedplanet.net/">PARCC</a>
+        <a class="dropdown__element" href="http://www.iccaregistry.org">ICCA</a>
+        <a class="dropdown__element" href="<%= protected_planet_path(:pame_page) %>">PAME</a>
+        <a class="dropdown__element" href="<%= protected_planet_path(:connectivity_page) %>">Connectivity Conservation</a>
+        <a class="dropdown__element" href="https://www.iucn.org/theme/protected-areas/our-work/green-list">Green List</a>
+      </div>
+    </div>
+  </div>
+<% end %>
