@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>WdpaTracker</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Protected Planet | WDPA</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
 
-  <%= yield %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <main class="body-container">
+      <header class="js-expandable-section">
+        <%= render 'layouts/application/navbar' %>
+        <%= yield :header %>
+      </header>
 
-</body>
+      <%= yield %>
+    </main>
+
+    <%= render "layouts/application/footer" %>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <% if Rails.env == 'production' %>
+      <%= render 'shared/google_analytics' %>
+    <% end %>
+  </body>
 </html>
