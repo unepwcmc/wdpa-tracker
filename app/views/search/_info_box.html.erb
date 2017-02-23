@@ -1,0 +1,35 @@
+<div class="js-information-box one-thirds info-box info-box--fill-color">
+  <h2 class="info-box__header header-with-delimiter header-with-delimiter--bold">General information</h2>
+  <div class="info-box__body">
+    <table>
+      <tr class="information__row">
+        <td class="information__value u-bold">WDPA ID</td>
+        <td class="information__value"><%= @protected_area.wdpa_id %></td>
+      </tr>
+      <tr class="information__row">
+        <td class="information__value u-bold">Name</td>
+        <td class="information__value"><%= @protected_area.name %></td>
+      </tr>
+      <tr class="information__row">
+        <td class="information__value u-bold">Parent ISO</td>
+        <td class="information__value"><%= @protected_area.countries.map(&:iso3).join(',') %></td>
+      </tr>
+      <tr class="information__row">
+        <td class="information__value u-bold">ISO</td>
+        <td class="information__value"><%= @protected_area.countries.map(&:iso3).join(',') %></td>
+      </tr>
+      <tr class="information__row">
+        <td class="information__value u-bold">Designation</td>
+        <td class="information__value"><%= @protected_area.designation.name %></td>
+      </tr>
+      <tr class="information__row">
+        <td class="information__value u-bold">Designation type</td>
+        <td class="information__value"><%= @protected_area.designation.designation_type.name %></td>
+      </tr>
+      <tr class="information__row">
+        <td class="information__value u-bold">WDPA Version</td>
+        <td class="information__value"><%= @protected_area.last_wdpa_version %></td>
+      </tr>
+    </table>
+  </div>
+</div>

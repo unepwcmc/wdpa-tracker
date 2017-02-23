@@ -1,0 +1,50 @@
+<main class="container--profile container--right-padded container--push-bottom">
+  <nav class="breadcrumbs">
+    <a class="breadcrumbs__link" href="<%= protected_planet_path(:root) %>">Home</a> &gt;
+    <a class="breadcrumbs__link" href="<%= protected_planet_path(:resources) %>">Resources</a> &gt;
+    <a class="breadcrumbs__link" href="/">WDPA Code Tracker</a> &gt;
+    <% if @from_search %>
+      <a class="breadcrumbs__link" href="<%= root_path(q: @from_search) %>">Search results</a> &gt;
+    <% end %>
+    WDPA ID <%= @protected_area.wdpa_id %>
+  </nav>
+
+  <div class="hero">
+    <h1 class="hero__title hero__title--article hero__title--push hero__title--with-border">
+      WDPA ID <%= @protected_area.wdpa_id %>
+    </h1>
+  </div>
+
+  <% if @from_search %>
+    <a class="u-block link-with-icon">
+      <i class="fa fa-long-arrow-left link-with-icon__icon"></i> Go back to search results
+    </a>
+  <% end %>
+
+  <div class="row">
+    <div data-wdpa-id="<%= @protected_area.wdpa_id %>" id="map" class="one-thirds map"></div>
+    <%= render "info_box" %>
+    <div class="one-thirds info-box">
+      <h2 class="info-box__header header-with-delimiter header-with-delimiter--bold">Status history</h2>
+      <div class="info-box__body">
+        <table>
+          <% @wdpa_releases.each_with_index do |release, i| %>
+            <tr class="information__row">
+              <td class="information__value">
+                <%= release.created_at.strftime("%d.%m.%Y") %>
+                -
+                <% if i == 0 %>
+                  Present
+                <% else %>
+                  <%= @wdpa_releases[i-1].try(:created_at).try(:strftime, "%d.%m.%Y") %>
+                <% end %>
+              </td>
+              <td class="u-bold information__value">Allocated</td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+

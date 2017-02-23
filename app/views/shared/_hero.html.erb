@@ -1,0 +1,28 @@
+<div class="hero">
+  <h1 class="hero__title hero__title--article hero__title--push hero__title--with-border">WDPA Code Tracker</h1>
+</div>
+<p class="article__paragraph">
+  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  Lorem Ipsum has been the industry's standard dummy text ever since the
+  1500s, when an unknown printer took a galley of type and scrambled it to
+  make a type specimen book. It has survived not only five centuries, but
+  also the leap into electronic typesetting, remaining essentially unchanged.
+  It was popularised in the 1960s with the release of Letraset sheets
+  containing Lorem Ipsum passages, and more recently with desktop publishing
+  software like Aldus PageMaker including versions of Lorem Ipsum.
+</p>
+<div class="info-box info-box--fill-color">
+  <div class="info-box__body">
+
+    <form action='/search' method='get' class="u-width-60 search-bar search-bar--bigger search-bar--push" id="search-form">
+      <input autocomplete="off" name="q" placeholder="Search a code or a country" value='<%= @query %>' class="search-bar__input" type="text">
+      <button class="big-button" type="submit"><i class="big-button__icon big-button__icon--closer fa fa-search"></i>Search</button>
+    </form>
+
+    <p class="u-base-color">
+      <em class="u-italic">
+        To search for <strong class="u-bold">multiple codes or countries</strong> separate each element with semicolon (;) E.g. Chile;Uruguay;Brazil
+      </em>
+    </p>
+  </div>
+</div>
