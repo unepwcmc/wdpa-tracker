@@ -17,6 +17,7 @@ class WdpaPollingWorker
   private
 
   def newer_release?(current_release, newest_in_bucket)
+    return true if current_release.nil?
     newest_in_bucket.last_modified > current_release.created_at
   end
 end
