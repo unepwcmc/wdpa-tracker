@@ -7,4 +7,8 @@ class ProtectedArea < ActiveRecord::Base
 
   has_many :protected_areas_wdpa_releases
   has_many :wdpa_releases, through: :protected_areas_wdpa_releases
+
+  def last_wdpa_version
+    self.wdpa_releases.order(created_at: :desc).first.pretty_name
+  end
 end
