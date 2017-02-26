@@ -18,3 +18,9 @@
 
 # dotenv, for secrets configuration
 .env
+
+/node_modules
+/vendor/assets/bower_components
+
+# ignore any kind of db dump at root-level
+/*.sql
