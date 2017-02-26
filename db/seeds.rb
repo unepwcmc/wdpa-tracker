@@ -12,3 +12,9 @@ CSV.foreach(Rails.root.join("db/seeds/countries.csv"), headers: true) do |row|
   country.name = row["name"]
   country.save
 end
+
+if Rails.env.development?
+  user = User.find_or_initialize_by(email: "test@test.com")
+  user.password = user.password_confirmation = "test1234"
+  user.save
+end
