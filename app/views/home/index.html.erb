@@ -5,5 +5,9 @@
     WDPA Code Tracker
   </nav>
 
-  <%= render "shared/hero" %>
+  <% if current_user.present? %>
+    <%= render "shared/logged_in_hero" %>
+  <% else %>
+    <%= render "shared/hero" %>
+  <% end %>
 </main>

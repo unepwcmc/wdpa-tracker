@@ -6,7 +6,11 @@
     Search results
   </nav>
 
-  <%= render "shared/hero" %>
+  <% if current_user.present? %>
+    <%= render "shared/logged_in_hero" %>
+  <% else %>
+    <%= render "shared/hero" %>
+  <% end %>
 
   <div class="article">
     <h2 class="article__title article__title--smaller">Search results</h2>
