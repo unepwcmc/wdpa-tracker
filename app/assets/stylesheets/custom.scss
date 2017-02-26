@@ -1,4 +1,5 @@
 @import "utilities/bem";
+@import "sass-flex-mixin/flexbox";
 
 @include b(map) {
   height: 440px;
@@ -16,5 +17,50 @@
     &:last-child {
       padding-right: 0;
     }
+  }
+}
+
+@include b(search) {
+  @include flexbox;
+  @include justify-content(flex-start);
+  @include align-items(flex-end);
+
+  @include e(label) {
+    font-weight: 700;
+    line-height: 1.333rem;
+  }
+
+  @include e(field) {
+    margin-right: 1.25rem;
+    position: relative;
+  }
+
+  @include e(input) {
+    font-size: 14px;
+    font-family: 'MuseoSans';
+    font-weight: 300;
+    border: solid 1px #DFE0E1;
+    padding: .625rem;
+    width: 13rem;
+
+    @include m(short) {
+      width: 7.5rem;
+    }
+  }
+
+  @include e(autocompletion) {
+    position: absolute;
+    top: 100%;
+    background-color: white;
+    width: 100%;
+  }
+
+  @include e(autocompletion-result) {
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'MuseoSans';
+    font-weight: 300;
+    border: solid 1px #DFE0E1;
+    padding: .625rem;
   }
 }
