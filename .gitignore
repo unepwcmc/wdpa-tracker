@@ -24,3 +24,5 @@
 
 # ignore any kind of db dump at root-level
 /*.sql
+
+.byebug_history
