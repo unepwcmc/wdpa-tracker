@@ -19,6 +19,11 @@ module WdpaTracker
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
     config.assets.precompile += %w(protectedplanet-frontend/dist/*)
 
+    # Browserify stuff
+    config.browserify_rails.commandline_options = "-t [ babelify --presets [ es2015 ] ]"
+    config.browserify_rails.source_map_environments << "development"
+    config.assets.paths << Rails.root.join("node_modules")
+
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de

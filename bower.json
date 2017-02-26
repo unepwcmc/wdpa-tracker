@@ -1,8 +1,7 @@
 {
   "lib": {
     "name": "bower-rails generated lib assets",
-    "dependencies": {
-    }
+    "dependencies": {}
   },
   "vendor": {
     "name": "bower-rails generated vendor assets",

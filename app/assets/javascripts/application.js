@@ -10,7 +10,23 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require_self
+
+window.$ = window.jQuery = global.$ = require("jquery");
+import "babel-polyfill";
+import _ from "underscore";
+import map from "modules/map";
+import select from "modules/select";
+import autocompletion from "modules/autocompletion";
+
+$(document).ready( () => {
+  var $map = $("#map");
+  var $infoBox = $(".js-information-box");
+
+  if($map.length > 0 && $infoBox.length > 0) {
+    new map($map, $infoBox);
+  }
+
+  new select("search");
+  new autocompletion("country", "/countries", "name");
+});
