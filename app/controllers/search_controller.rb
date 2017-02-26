@@ -1,17 +1,8 @@
 class SearchController < ApplicationController
   def index
-    @query = params[:q]
-    @results = ProtectedArea.joins(:countries).includes(:wdpa_releases)
-
-    type, values = reconstruct_query(@query)
-
-    if type == :wdpa_ids
-      @results = @results.where(wdpa_id: values)
-    else
-      @results = @results.where("countries.name IN (?)", values)
-    end
-
-    @results = @results.page(params[:page] || 1)
+    search = Search.search(params)
+    @query = search[:query]
+    @results = search[:results]
   end
 
   def show
@@ -23,17 +14,6 @@ class SearchController < ApplicationController
   end
 
   private
-
-  def reconstruct_query query
-    pieces = Array.wrap(query.split(";").map(&:chomp))
-    ids = pieces.map(&:to_i).reject(&:zero?)
-
-    if ids.length > 0
-      [:wdpa_ids, ids]
-    else
-      [:countries, pieces]
-    end
-  end
 
   COLUMNS = {
     "id" => "reports.id",
