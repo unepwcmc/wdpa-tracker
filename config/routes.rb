@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   end
 
   resources :countries, only: [:index]
+  resources :users, only: [:index]
+  resources :allocations
 
   get '/search' => 'search#index'
   get '/:wdpa_id' => 'search#show', as: "protected_area"
