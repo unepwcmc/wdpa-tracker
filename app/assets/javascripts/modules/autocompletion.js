@@ -1,4 +1,5 @@
 var _ = require("underscore");
+
 export default class Autocompletion {
   constructor(group, url, property) {
     this.$inputEl = $(`[data-autocompletion-trigger='${group}']`);
@@ -19,7 +20,7 @@ export default class Autocompletion {
       return false;
     }
 
-    var re = new RegExp("^" + textInput, "i");
+    var re = new RegExp(`^${textInput}| ${textInput}`, "i");
     var foundMatches = _.filter(this.data, str => re.test(str) && str !== textInput);
 
     if(foundMatches.length > 0) {
