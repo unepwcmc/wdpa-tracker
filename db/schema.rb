@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523135425) do
+ActiveRecord::Schema.define(version: 20170228113806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "allocations", force: :cascade do |t|
+    t.text     "comment"
+    t.integer  "protected_area_id"
+    t.integer  "user_id"
+    t.integer  "country_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "allocations", ["country_id"], name: "index_allocations_on_country_id", using: :btree
+  add_index "allocations", ["protected_area_id"], name: "index_allocations_on_protected_area_id", unique: true, using: :btree
+  add_index "allocations", ["user_id"], name: "index_allocations_on_user_id", using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "iso3",       limit: 3
@@ -85,6 +98,8 @@ ActiveRecord::Schema.define(version: 20160523135425) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.text     "first_name"
+    t.text     "last_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -98,6 +113,9 @@ ActiveRecord::Schema.define(version: 20160523135425) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "allocations", "countries"
+  add_foreign_key "allocations", "protected_areas"
+  add_foreign_key "allocations", "users"
   add_foreign_key "countries_protected_areas", "countries"
   add_foreign_key "countries_protected_areas", "protected_areas"
   add_foreign_key "designations", "designation_types"
