@@ -1,7 +1,12 @@
 module Search
   def self.search params
     query   = ""
-    results = ProtectedArea.joins(:countries).includes(:wdpa_releases)
+    results = ProtectedArea
+      .joins(:countries)
+      .joins("LEFT JOIN designations ON designations.id = protected_areas.designation_id")
+      .joins("LEFT JOIN allocations ON allocations.protected_area_id = protected_areas.id")
+      .joins("LEFT JOIN users ON users.id = allocations.user_id")
+      .includes(:wdpa_releases)
 
     if params[:search_type] == "range"
       range = (params[:range_from]..params[:range_to])
@@ -13,7 +18,7 @@ module Search
     end
 
     if params[:search_type] == "allocator"
-      results = results.where(status: "reserved")
+      results = results.where(%q(concat(users.first_name, ' ', users.last_name) = ?), params[:allocator])
     end
 
     if params[:q].present?
@@ -21,9 +26,9 @@ module Search
       type, values = reconstruct_query(query)
 
       if type == :wdpa_ids
-        @results = @results.where(wdpa_id: values)
+        results = results.where(wdpa_id: values)
       else
-        @results = @results.where("countries.name IN (?)", values)
+        results = results.where("countries.name IN (?)", values)
       end
     end
 
