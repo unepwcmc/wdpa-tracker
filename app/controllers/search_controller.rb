@@ -1,8 +1,10 @@
 class SearchController < ApplicationController
   def index
     search = Search.search(params)
+
+    @search_id = params.slice(:search_type, :q, :range_from, :range_to, :country, :allocator)
+    @results = sort(search[:results], params[:sort], params[:dir])
     @query = search[:query]
-    @results = search[:results]
   end
 
   def show
@@ -16,27 +18,25 @@ class SearchController < ApplicationController
   private
 
   COLUMNS = {
-    "id" => "reports.id",
-    "username" => "users.first_name",
-    "agency" => "agencies.name",
-    "timestamp" => "reports.created_at",
-    "date_of_discovery" => "reports.data->'answers'->'date_of_discovery'->>'selected'",
-    "confiscated" => "reports.data->'answers'->'confiscated'->>'selected'",
-    "state" => "reports.data->>'state'",
+    "wdpa_id" => "protected_areas.wdpa_id",
+    "name" => "protected_areas.name",
+    "parent_iso" => "countries.iso3",
+    "iso" => "countries.iso3",
+    "designation" => "designations.name",
+    "designation_type" => "designation_types.name",
+    "wdpa_release" => "(protected_areas.status, wdpa_releases.created_at)"
   }
 
-  def self.sort collection, column, direction
-    collection = collection.includes(user: :agency)
+  def sort collection, column, direction
     order = build_column(column) + " " + build_direction(direction)
-
     collection.order(order)
   end
 
-  def self.build_column column
-    COLUMNS[column] || "reports.created_at"
+  def build_column column
+    COLUMNS[column] || "protected_areas.wdpa_id"
   end
 
-  def self.build_direction direction
+  def build_direction direction
     %w[asc desc].include?(direction) ? direction : "desc"
   end
 end
