@@ -1,0 +1,22 @@
+<div class="info-box info-box--fill-color">
+  <h2 class="article__title--paragraph article__title--no-push">Site codes allocation</h2>
+  <div class="info-box__body">
+    <p class="article__paragraph">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the
+      1500s, when an unknown printer took a galley of type and scrambled it to
+      make a type specimen book. It has survived not only five centuries, but
+      also the leap into electronic typesetting, remaining essentially unchanged.
+    </p>
+
+    <form action="<%= new_allocation_path %>" method="get" class="search" id="allocation-form">
+      <label class="search__field" for="quantity">
+        <p class="search__label">How many site codes do you need?</p>
+        <input value="<%= params[:quantity] %>" class="search__input search__input--long" id="quantity" name="quantity" type="number">
+      </label>
+
+      <button class="big-button" type="submit">Request</button>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,123 @@
+<main class="container--profile container--right-padded container--push-bottom">
+  <nav class="breadcrumbs">
+    <a class="breadcrumbs__link" href="<%= protected_planet_path(:root) %>">Home</a> &gt;
+    <a class="breadcrumbs__link" href="<%= protected_planet_path(:resources) %>">Resources</a> &gt;
+    WDPA Code Tracker
+  </nav>
+
+  <%= render "shared/logged_in_hero" %>
+
+  <div class="article">
+    <h2 class="article__title article__title--smaller">Available site codes</h2>
+
+    <table class="row table js-sortable-table">
+      <thead>
+        <tr class="table__header">
+          <th class="table__column u-text-left">Package</th>
+          <th class="table__column u-text-left">Starting WDPA ID</th>
+          <th class="table__column u-text-left">Ending WDPA ID</th>
+          <th class="table__column u-text-left"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% [@set1, @set2, @set3].each_with_index do |set, set_index| %>
+
+          <% set.each_with_index do |chunk, i| %>
+            <tr class="table__row <%= "table__row--first" if i.zero? %>">
+              <% if i.zero? %>
+                <td rowspan="<%= set.length %>" class="table__label table__label--align-top">Range set #<%= set_index + 1 %></td>
+              <% end %>
+              <td class="table__label table__label--align-top"><%= chunk.first %></td>
+              <td class="table__label table__label--align-top"><%= chunk.last %></td>
+              <% if i.zero? %>
+                <td rowspan="<%= set.length %>" class="table__label table__label--align-top u-text-right">
+                  <button data-toggle-trigger="set-<%= set_index %>" class="big-button big-button--alt-colors">Choose this set</button>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<% [@set1, @set2, @set3].each_with_index do |set, set_index| %>
+  <div class="u-hide o-overlay" data-allocation-modal data-block-page-trigger="modal" data-toggle-target="set-<%= set_index %>">
+    <div class="modal u-base-color">
+      <h3 class="header-with-delimiter">
+        Site codes allocation
+        <button data-toggle-trigger="set-<%= set_index %>" class="u-link-color u-right" href="#"><i class="fa fa-times"></i></button>
+      </h3>
+      <p class="article__paragraph"><strong class="u-bold">Chosen range set</strong> (<%= params[:quantity] %> codes)</p>
+      <table class="row table js-sortable-table">
+        <thead>
+          <tr class="table__header">
+            <th class="table__column u-text-left">Starting WDPA ID</th>
+            <th class="table__column u-text-left">Ending WDPA ID</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% set.each_with_index do |chunk, i| %>
+            <tr class="table__row">
+              <td class="table__label"><%= chunk.first %></td>
+              <td class="table__label"><%= chunk.last %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <form data-allocation-form action="<%= allocations_path %>" method="POST">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+        <% set.flatten.each do |wdpa_id| %>
+          <input type="hidden" name="wdpa_ids[]" multiple="multiple" value="<%= wdpa_id %>">
+        <% end %>
+
+        <label class="row u-block search__field" for="country-set-<%= set_index %>">
+          <p class="search__label">Associated country</p>
+          <input autocomplete="off" placeholder="optional" id="country-set-<%= set_index %>" data-autocompletion-trigger="country" class="search__input" type="text" name="country">
+          <div class="search__autocompletion" data-autocompletion-target="country"></div>
+        </label>
+
+        <hr class="row divider">
+
+        <div class="u-text-right">
+          <a style="margin-right: .75rem" class="u-link-color u-bold" data-toggle-trigger="set-<%= set_index %>" href="#">Cancel</a>
+          <button class="big-button">Allocate</button>
+        </div>
+      </form>
+    </div>
+  </div>
+<% end %>
+
+<div class="u-hide o-overlay" data-allocation-success data-block-page-trigger="modal" data-toggle-target="success">
+  <div class="modal u-base-color">
+    <h3 class="header-with-delimiter">
+      Site codes allocation
+      <button onclick="document.location.href = '<%= allocations_path %>'" class="u-link-color u-right" href="#">
+        <i class="fa fa-times"></i>
+      </button>
+    </h3>
+    <div class="row alert alert--flex">
+      <span class="fa-stack alert__icon alert__icon--success">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-check alert__icon-inner alert__icon-inner--success fa-stack-1x"></i>
+      </span>
+
+      <div>
+        <h4 class="alert__title alert__title--success">Successful operation</h4>
+        <p class="alert__body">The site codes have been allocated.</p>
+      </div>
+    </div>
+
+    <hr class="divider row">
+
+    <div class="u-text-right">
+      <button onclick="document.location.href = '<%= allocations_path %>'" class="big-button">Close</button>
+    </div>
+  </div>
+</div>
