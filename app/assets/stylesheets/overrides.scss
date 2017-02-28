@@ -1,0 +1,47 @@
+.hero {
+  margin-bottom: .625rem;
+}
+
+.hero__title--push {
+  margin-bottom: 0;
+}
+
+.o-overlay {
+  background-color: rgba(113, 163, 43, 0.74);
+  position: fixed;
+  overflow-y: scroll;
+}
+
+
+
+.modal {
+  display: block;
+  position: relative;
+  z-index: 900;
+  left: 50%;
+  width: 380px;
+  padding: 30px;
+  background: #ffffff;
+  font-family: 'MuseoSans';
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.333rem;
+  margin-left: -190px;
+  margin-bottom: 2rem;
+  top: 0;
+  margin-top: 2rem;
+
+  input {
+    background-color: white;
+    font-size: 14px;
+    font-family: 'MuseoSans';
+    font-weight: 300;
+    border: solid 1px #DFE0E1;
+    padding: .625rem;
+    width: 100%;
+  }
+
+  p {
+    margin-top: 0;
+  }
+}
