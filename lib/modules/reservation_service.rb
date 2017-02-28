@@ -9,9 +9,8 @@ module ReservationService
     }
   end
 
-  def self.request(amount)
-    try_from = 1
-    try_to   = amount
+  def self.request(amount, try_from=1)
+    try_to = try_from + amount - 1
 
     reserved = []
     while reserved.length < amount

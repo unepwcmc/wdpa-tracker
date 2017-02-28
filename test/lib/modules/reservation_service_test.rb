@@ -42,4 +42,13 @@ class ReservationServiceTest < ActiveSupport::TestCase
                 58, 59, 60, 61]
     assert_equal expected, ReservationService.request(20)
   end
+
+  test "request(amount, from) searches for WDPAIDs starting from value" do
+    (1..10).each  { |wdpa_id| ProtectedArea.create(wdpa_id: wdpa_id) }
+    (15..20).each { |wdpa_id| ProtectedArea.create(wdpa_id: wdpa_id) }
+    (30..50).each { |wdpa_id| ProtectedArea.create(wdpa_id: wdpa_id) }
+
+    expected = [21, 22, 23, 24, 25, 26, 27, 28, 29, 51]
+    assert_equal expected, ReservationService.request(10, 19)
+  end
 end
