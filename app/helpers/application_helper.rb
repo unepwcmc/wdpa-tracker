@@ -17,4 +17,22 @@ module ApplicationHelper
       terms:             File.join(PP_CONFIG["root_url"], "c/terms-and-conditions")
     }[page]
   end
+
+  def active_link_to text, urls, html_opts={}
+    urls = Array.wrap(urls)
+
+    urls.each do |url|
+      if current_controller?(url)
+        html_opts[:class] ||= ""
+        html_opts[:class] << " is-active"
+      end
+    end
+
+    link_to text, urls.first, html_opts
+  end
+
+  def current_controller?(url)
+    info = Rails.application.routes.recognize_path url
+    params[:controller] == info[:controller]
+  end
 end
