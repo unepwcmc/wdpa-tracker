@@ -13,35 +13,57 @@
   <% end %>
 
   <div class="article">
-    <h2 class="article__title article__title--smaller">Search results</h2>
-    <table class="row table js-sortable-table">
-      <thead>
-        <tr class="table__header">
-          <th class="table__column u-text-left"><%= sortable "wdpa_id", "WDPA ID" %></th>
-          <th class="table__column u-text-left"><%= sortable "name" %></th>
-          <th class="table__column u-text-left"><%= sortable "parent_iso", "Parent ISO" %></th>
-          <th class="table__column u-text-left"><%= sortable "iso", "ISO" %></th>
-          <th class="table__column u-text-left"><%= sortable "designation" %></th>
-          <th class="table__column u-text-left"><%= sortable "designation_type" %></th>
-          <th class="table__column u-text-left"><%= sortable "wdpa_version", "Last WDPA Version" %></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @results.each do |result| %>
-          <tr class="table__row">
-            <td class="table__label table__label--link"><%= link_to result.wdpa_id, protected_area_path(result.wdpa_id, from_search: @query) %></td>
-            <td class="table__label table__label--link"><%= link_to result.name, protected_area_path(result.wdpa_id, from_search: @query) %></td>
-            <td class="table__label"><%= result.countries.map(&:iso3).join(',') %></td>
-            <td class="table__label"><%= result.countries.map(&:iso3).join(',') %></td>
-            <td class="table__label"><%= result.designation.name %></td>
-            <td class="table__label"><%= result.designation.designation_type.name %></td>
-            <td class="table__label"><%= result.last_wdpa_version %></td>
+    <% if @results.any? %>
+      <h2 class="article__title article__title--smaller">Search results</h2>
+      <table class="row table js-sortable-table">
+        <thead>
+          <tr class="table__header">
+            <th class="table__column u-text-left"><%= sortable "wdpa_id", "WDPA ID" %></th>
+            <th class="table__column u-text-left"><%= sortable "name" %></th>
+            <th class="table__column u-text-left"><%= sortable "parent_iso", "Parent ISO" %></th>
+            <th class="table__column u-text-left"><%= sortable "iso", "ISO" %></th>
+            <th class="table__column u-text-left"><%= sortable "designation" %></th>
+            <th class="table__column u-text-left"><%= sortable "designation_type" %></th>
+            <th class="table__column u-text-left"><%= sortable "wdpa_version", "Last WDPA Version" %></th>
           </tr>
-        <% end %>
-      </tr>
-    </tbody>
-  </table>
+        </thead>
+
+        <tbody>
+          <% @results.each do |result| %>
+            <tr class="table__row">
+              <td class="table__label <%= "table__label--link" unless result.only_allocated? %>">
+                <% if result.only_allocated? %>
+                  <%= result.wdpa_id %>
+                <% else %>
+                  <%= link_to result.wdpa_id || "", protected_area_path(result.wdpa_id, from_search: @search_id) %>
+                <% end %>
+              </td>
+              <td class="table__label <%= "table__label--link" unless result.only_allocated? %>">
+                <% if result.only_allocated? %>
+                  (Allocated)
+                <% else %>
+                  <%= link_to result.name, protected_area_path(result.wdpa_id, from_search: @search_id) %>
+                <% end %>
+              </td>
+              <td class="table__label"><%= result.countries.map(&:iso3).join(',') %></td>
+              <td class="table__label"><%= result.countries.map(&:iso3).join(',') %></td>
+              <td class="table__label"><%= result&.designation&.name %></td>
+              <td class="table__label"><%= result&.designation&.designation_type&.name %></td>
+              <td class="table__label">
+                <% if result.only_allocated? %>
+                  Allocated (by <%= result.allocation.user.full_name %>)
+                <% else %>
+                  <%= result.last_wdpa_version %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+  <% else %>
+    <h2 class="article__title u-center article__title--smaller">No results found</h2>
+  <% end %>
 
   <%= paginate @results %>
   </div>

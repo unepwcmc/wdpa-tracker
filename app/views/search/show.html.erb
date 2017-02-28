@@ -4,7 +4,7 @@
     <a class="breadcrumbs__link" href="<%= protected_planet_path(:resources) %>">Resources</a> &gt;
     <a class="breadcrumbs__link" href="/">WDPA Code Tracker</a> &gt;
     <% if @from_search %>
-      <a class="breadcrumbs__link" href="<%= root_path(q: @from_search) %>">Search results</a> &gt;
+      <a class="breadcrumbs__link" href="<%= search_path(@from_search) %>">Search results</a> &gt;
     <% end %>
     WDPA ID <%= @protected_area.wdpa_id %>
   </nav>

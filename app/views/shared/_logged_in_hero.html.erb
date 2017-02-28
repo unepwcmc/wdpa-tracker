@@ -2,60 +2,14 @@
   <h1 class="hero__title hero__title--article hero__title--push hero__title--with-border">WDPA Code Tracker</h1>
 </div>
 
-<div class="info-box info-box--fill-color">
-  <h2 class="article__title--paragraph article__title--no-push">Search for site codes</h2>
-  <div class="info-box__body">
-    <p class="article__paragraph">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book. It has survived not only five centuries, but
-      also the leap into electronic typesetting, remaining essentially unchanged.
-      It was popularised in the 1960s with the release of Letraset sheets
-      containing Lorem Ipsum passages, and more recently with desktop publishing
-      software like Aldus PageMaker including versions of Lorem Ipsum.
-    </p>
-
-    <form action='/search' method='get' class="search" id="search-form">
-      <label class="search__field" for="search_type">
-        <p class="search__label">Searching for</p>
-        <div class="form__select-container">
-          <select data-select-trigger="search" class="search__input" id="search_type" name="search_type">
-            <option value="range">Range codes</option>
-            <option value="country">Country</option>
-            <option value="allocator">Allocator</option>
-          </select>
-        </div>
-      </label>
-
-      <div data-select-target="search" data-select-value="range">
-        <label class="u-left search__field" for="range_from">
-          <p class="search__label">From</p>
-          <input value="<%= params[:range_from] %>" class="search__input search__input--short" id="range_from" name="range_from" type="number">
-        </label>
-        <label class="u-left search__field" for="range_to">
-          <p class="search__label">To</p>
-          <input value="<%= params[:range_to] %>" class="search__input search__input--short" id="range_to" name="range_to" type="number">
-        </label>
-      </div>
-
-      <div data-select-target="search" data-select-value="country">
-        <label class="u-left search__field" for="country">
-          <p class="search__label">Country</p>
-          <input autocomplete="off" data-autocompletion-trigger="country" value="<%= params[:country] %>" class="search__input" id="country" name="country" type="text">
-          <div  class="search__autocompletion" data-autocompletion-target="country"></div>
-        </label>
-      </div>
-
-      <div data-select-target="search" data-select-value="allocator">
-        <label class="u-left search__field" for="allocator">
-          <p class="search__label">Allocator</p>
-          <input value="<%= params[:allocator] %>" class="search__input" id="allocator" name="allocator" type="text">
-        </label>
-      </div>
-
-      <button class="big-button" type="submit">Search</button>
-    </form>
-  </div>
+<div class="tabs">
+  <%= active_link_to("Search for site codes", [root_path, search_path], class: "tabs__tab") %>
+  <%= active_link_to("Site codes allocation", allocations_path, class: "tabs__tab") %>
 </div>
+
+<% if current_controller?(allocations_path) %>
+  <%= render "shared/allocation_box" %>
+<% else %>
+  <%= render "shared/search_box" %>
+<% end %>
 
