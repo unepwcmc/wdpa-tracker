@@ -1,25 +1,26 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
-//= require_self
-
+// libraries
 window.$ = window.jQuery = global.$ = require("jquery");
 import "babel-polyfill";
 import _ from "underscore";
+
+// utilities
+import jqueryOverrides from "utilities/jquery_overrides";
+
+// modules
 import map from "modules/map";
 import select from "modules/select";
+import toggle from "modules/toggle";
+import blockPage from "modules/block_page";
+import allocation from "modules/allocation";
 import autocompletion from "modules/autocompletion";
 
 $(document).ready( () => {
+  // initial overrides for new
+  // functionalities in jquery
+  jqueryOverrides.overrideShow();
+  jqueryOverrides.overrideHide();
+  jqueryOverrides.overrideToggle();
+
   var $map = $("#map");
   var $infoBox = $(".js-information-box");
 
@@ -28,5 +29,16 @@ $(document).ready( () => {
   }
 
   new select("search");
+
+  new toggle("set-0");
+  new toggle("set-1");
+  new toggle("set-2");
+  new toggle("success");
+
+  new blockPage("modal");
+
   new autocompletion("country", "/countries", "name");
+  new autocompletion("allocator", "/users", "full_name");
+
+  new allocation();
 });
