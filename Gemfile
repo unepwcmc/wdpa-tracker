@@ -6,6 +6,7 @@ gem "kaminari", "~> 1.0.1"
 
 # DB
 gem "pg", "~> 0.18.4"
+gem "gdal", "~> 1.0.0"
 
 # Frontend
 gem "sass-rails", "~> 5.0"
@@ -42,6 +43,8 @@ group :development do
   gem "capistrano-rvm",   "~> 0.1", require: false
   gem "capistrano-maintenance", "~> 1.0", require: false
   gem "capistrano-passenger", "~> 0.2.0", require: false
+  gem "capistrano-npm"
+  gem "capistrano-sidekiq"
 end
 
 

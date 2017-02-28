@@ -69,6 +69,8 @@ GEM
     capistrano-harrow (0.5.3)
     capistrano-maintenance (1.1.0)
       capistrano (>= 3.0)
+    capistrano-npm (1.0.2)
+      capistrano (>= 3.0.0)
     capistrano-passenger (0.2.0)
       capistrano (~> 3.0)
     capistrano-rails (1.2.2)
@@ -77,6 +79,9 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    capistrano-sidekiq (0.5.4)
+      capistrano
+      sidekiq (>= 3.4)
     celluloid (0.17.3)
       celluloid-essentials
       celluloid-extras
@@ -111,6 +116,7 @@ GEM
     execjs (2.6.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
+    gdal (1.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hitimes (1.2.4)
@@ -241,12 +247,15 @@ DEPENDENCIES
   capistrano (= 3.6)
   capistrano-bundler (~> 1.1.4)
   capistrano-maintenance (~> 1.0)
+  capistrano-npm
   capistrano-passenger (~> 0.2.0)
   capistrano-rails (~> 1.1)
   capistrano-rvm (~> 0.1)
+  capistrano-sidekiq
   devise (~> 4.1.0)
   dotenv-rails (~> 2.1.1)
   factory_girl (~> 4.7.0)
+  gdal (~> 1.0.0)
   jquery-rails
   kaminari (~> 1.0.1)
   mocha (~> 1.1.0)
@@ -257,3 +266,6 @@ DEPENDENCIES
   sidetiq (~> 0.7.0)
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.11.2
