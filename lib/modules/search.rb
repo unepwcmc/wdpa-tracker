@@ -14,7 +14,7 @@ module Search
     end
 
     if params[:search_type] == "country"
-      results = results.where("countries.name = ?", params[:country])
+      results = results.where("lower(countries.name) = lower(?)", params[:country])
     end
 
     if params[:search_type] == "allocator"
