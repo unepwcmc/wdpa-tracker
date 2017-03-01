@@ -8,6 +8,9 @@ set :server_name, "web.pp-production.linode.protectedplanet.net"
 set :sudo_user, "wcmc"
 set :app_port, "80"
 
+set :npm_flags, "--silent --no-progress"
+set :sidekiq_role, :web
+
 
 # server-based syntax
 # ======================
