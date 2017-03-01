@@ -7,6 +7,11 @@ set :server_name, "web.pp-staging.linode.protectedplanet.net"
 set :sudo_user, "wcmc"
 set :app_port, "80"
 
+set :npm_flags, "--silent --no-progress"
+set :sidekiq_role, :web
+
+after "deploy:finishing", :block_robots
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
