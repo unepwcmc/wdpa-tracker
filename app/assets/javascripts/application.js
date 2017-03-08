@@ -1,3 +1,6 @@
+//= require jquery
+//= require jquery_ujs
+
 // libraries
 window.$ = window.jQuery = global.$ = require("jquery");
 import "babel-polyfill";
@@ -34,6 +37,7 @@ $(document).ready( () => {
   new toggle("set-1");
   new toggle("set-2");
   new toggle("success");
+  new toggle("thematic-areas");
 
   new blockPage("modal");
 

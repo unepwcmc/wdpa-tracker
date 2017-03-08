@@ -14,6 +14,14 @@
         <%= render 'layouts/application/navbar' %>
         <%= yield :header %>
       </header>
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>">
+          <p class="alert__body">
+            <%= raw(value) %>
+          </p>
+        </div>
+      <% end %>
+
 
       <%= yield %>
     </main>

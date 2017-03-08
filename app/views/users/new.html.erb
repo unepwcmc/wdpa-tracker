@@ -1,0 +1,66 @@
+<main class="container--profile container--right-padded container--push-bottom">
+  <nav class="breadcrumbs">
+    <a class="breadcrumbs__link" href="<%= protected_planet_path(:root) %>">Home</a> &gt;
+    <a class="breadcrumbs__link" href="<%= protected_planet_path(:resources) %>">Resources</a> &gt;
+    <a class="breadcrumbs__link" href="/">WDPA Code Tracker</a> &gt;
+    <a class="breadcrumbs__link" href="/users">Users management</a> &gt;
+    New user
+  </nav>
+
+  <%= render "shared/logged_in_hero" %>
+
+  <div class="article">
+    <div class="info-box info-box--fill-color">
+      <div class="info-box__body">
+        <%= form_for(@user) do |f| %>
+          <% if @user.errors.any? %>
+            <div id="row">
+              <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+                <% @user.errors.full_messages.each do |message| %>
+                  <p><%= message %></p>
+                <% end %>
+            </div>
+          <% end %>
+
+          <div class="row">
+            <label for="email">
+              <p class="search__label">Email</p>
+              <%= f.email_field :email, autofocus: true, class: "search__input" %>
+            </label>
+          </div>
+
+          <div class="row">
+            <label for="password">
+              <p class="search__label">Password</p>
+              <%= f.password_field :password, autocomplete: "off", class: "search__input" %>
+            </label>
+          </div>
+
+          <div class="row">
+            <label for="password_confirmation">
+              <p class="search__label">Password confirmation</p>
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "search__input" %>
+            </label>
+          </div>
+
+          <div class="row">
+            <label for="first_name">
+              <p class="search__label">First Name</p>
+              <%= f.text_field :first_name, class: "search__input" %>
+            </label>
+          </div>
+
+          <div class="row">
+            <label for="last_name">
+              <p class="search__label">Last Name</p>
+              <%= f.text_field :last_name, class: "search__input" %>
+            </label>
+          </div>
+
+          <button class="big-button" type="submit">Create user</button>
+          <a class="big-button big-button--alt-colors" href="<%= users_path %>">Cancel</a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,3 +1,17 @@
+<div class="navbar navbar--darker">
+  <div class="<%= bem('navbar__element', :right, :thinner, 'push-right') %>">
+    <% if current_user.present? %>
+      <%= link_to(destroy_user_session_path, method: :delete) do %>
+        Sign out<i class="link-with-icon__icon link-with-icon__icon--after fa fa-unlock"></i>
+      <% end %>
+    <% else %>
+      <a href="<%= new_user_session_path %>">
+        Sign in<i class="link-with-icon__icon link-with-icon__icon--after fa fa-lock"></i>
+      </a>
+    <% end %>
+  </div>
+</div>
+
 <nav class="navbar">
   <div class="navbar__element navbar__element--bigger">
     <%= link_to protected_planet_path(:root), class: 'protectedplanet-logo' do %>

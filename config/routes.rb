@@ -5,14 +5,15 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "users"}
+
 
   devise_scope :user do
     get 'login', to: 'devise/sessions#new'
   end
 
   resources :countries, only: [:index]
-  resources :users, only: [:index]
+  resources :users
   resources :allocations
 
   get '/search' => 'search#index'
