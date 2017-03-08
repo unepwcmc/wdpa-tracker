@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def index
-    search = Search.search(params)
+    search = Search.search(params, current_user.blank?)
 
     @search_id = params.slice(:search_type, :q, :range_from, :range_to, :country, :allocator)
     @results = sort(search[:results], params[:sort], params[:dir])

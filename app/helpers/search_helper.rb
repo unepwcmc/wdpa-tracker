@@ -6,7 +6,7 @@ module SearchHelper
       cl << " is-sorted-#{direction}" if column == params[:sort]
     }
 
-    link_to(@search_id.merge({sort: column, dir: direction}), class: css_class) do
+    link_to((@search_id || {}).merge({sort: column, dir: direction}), class: css_class) do
       concat title
     end
   end
