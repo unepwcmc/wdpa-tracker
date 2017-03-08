@@ -14,7 +14,7 @@ CSV.foreach(Rails.root.join("db/seeds/countries.csv"), headers: true) do |row|
 end
 
 if Rails.env.development?
-  user = User.find_or_initialize_by(email: "test@test.com")
+  user = User.find_or_initialize_by(email: "test@test.com", role: Role.find_by_name("admin"))
   user.password = user.password_confirmation = "test1234"
   user.save
 end

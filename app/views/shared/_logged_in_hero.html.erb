@@ -5,10 +5,14 @@
 <div class="tabs">
   <%= active_link_to("Search for site codes", [root_path, search_path], class: "tabs__tab") %>
   <%= active_link_to("Site codes allocation", allocations_path, class: "tabs__tab") %>
+  <% if current_user.role.name == "Admin" %>
+    <%= active_link_to("Users management", users_path, class: "tabs__tab") %>
+  <% end %>
 </div>
 
 <% if current_controller?(allocations_path) %>
   <%= render "shared/allocation_box" %>
+<% elsif current_controller?(users_path) %>
 <% else %>
   <%= render "shared/search_box" %>
 <% end %>
