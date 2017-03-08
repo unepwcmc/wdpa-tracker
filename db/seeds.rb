@@ -13,6 +13,21 @@ CSV.foreach(Rails.root.join("db/seeds/countries.csv"), headers: true) do |row|
   country.save
 end
 
+wdpa_release_files = Dir.glob("#{Rails.root.join("db/seeds/wdpa_releases")}/**/*.csv")
+
+wdpa_release_files.each do |release_file|
+  release_name = File.basename(release_file, ".csv")
+  released_at = DateTime.parse(release_name)
+
+  if WdpaRelease.where(name: release_name).first.nil?
+    wdpa_ids = CSV.read(release_file).flatten
+    pas = ProtectedArea.where(wdpa_id: wdpa_ids)
+
+    wdpa_release = WdpaRelease.create(name: release_name, created_at: released_at)
+    wdpa_release.protected_areas = pas
+  end
+end
+
 roles = ["Admin", "Team"]
 roles.each { |r| Role.where(name: r).first_or_create }
 
