@@ -5,6 +5,10 @@ class SearchController < ApplicationController
     @search_id = params.slice(:search_type, :q, :range_from, :range_to, :country, :allocator)
     @results = sort(search[:results], params[:sort], params[:dir])
     @query = search[:query]
+
+    if @results.length == 1 && !params[:no_redirect]
+      redirect_to protected_area_path(@results.first.wdpa_id, from_search: @search_id)
+    end
   end
 
   def show
