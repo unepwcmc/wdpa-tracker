@@ -28,15 +28,15 @@
       <h2 class="info-box__header header-with-delimiter header-with-delimiter--bold">Status history</h2>
       <div class="info-box__body">
         <table>
-          <% @wdpa_releases.each_with_index do |release, i| %>
+          <% @protected_area.present_intervals.reverse.each do |interval| %>
             <tr class="information__row">
               <td class="information__value">
-                <%= release.created_at.strftime("%d.%m.%Y") %>
+                <%= interval.first.strftime("%d.%m.%Y") %>
                 -
-                <% if i == 0 %>
+                <% if interval.length == 1 %>
                   Present
                 <% else %>
-                  <%= @wdpa_releases[i-1].try(:created_at).try(:strftime, "%d.%m.%Y") %>
+                  <%= interval.last.strftime("%d.%m.%Y") %>
                 <% end %>
               </td>
               <td class="u-bold information__value">Present</td>

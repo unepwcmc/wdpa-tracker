@@ -17,4 +17,32 @@ class ProtectedArea < ActiveRecord::Base
   def only_allocated?
     status == "allocated" && wdpa_releases.empty?
   end
+
+  def present_intervals
+    intervals = []
+    current_interval = []
+    found = false
+
+    WdpaRelease.order(:created_at).each do |release|
+      if self.wdpa_releases.include?(release) && !found
+        current_interval << release.created_at
+        found = true
+      end
+
+      if !self.wdpa_releases.include?(release) && found
+        current_interval << release.created_at
+
+        intervals << current_interval.clone
+        current_interval = []
+        found = false
+      end
+    end
+
+    # handle last release, to present day
+    if current_interval.length == 1
+      intervals << current_interval
+    end
+
+    return intervals
+  end
 end
