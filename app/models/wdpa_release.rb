@@ -1,5 +1,5 @@
 class WdpaRelease < ActiveRecord::Base
-  has_many :protected_areas_wdpa_releases
+  has_many :protected_areas_wdpa_releases, dependent: :delete_all
   has_many :protected_areas, through: :protected_areas_wdpa_releases
 
   def pretty_name
