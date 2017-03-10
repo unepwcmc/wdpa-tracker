@@ -24,7 +24,7 @@
             <th class="table__column u-text-left"><%= sortable "iso", "ISO" %></th>
             <th class="table__column u-text-left"><%= sortable "designation" %></th>
             <th class="table__column u-text-left"><%= sortable "designation_type" %></th>
-            <th class="table__column u-text-left"><%= sortable "wdpa_version", "Last WDPA Version" %></th>
+            <th class="table__column u-text-left"><%= sortable "wdpa_release", "Last WDPA Version" %></th>
           </tr>
         </thead>
 
@@ -62,7 +62,7 @@
       </tbody>
     </table>
   <% else %>
-    <h2 class="article__title u-center article__title--smaller">No results found</h2>
+    <h2 class="qa-no-results article__title u-center article__title--smaller">No results found</h2>
   <% end %>
 
   <%= paginate @results %>

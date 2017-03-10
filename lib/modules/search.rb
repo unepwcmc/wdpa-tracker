@@ -1,20 +1,15 @@
 module Search
   def self.search params, only_public
     query   = ""
-    results = ProtectedArea
-      .joins(:countries)
-      .joins("LEFT JOIN designations ON designations.id = protected_areas.designation_id")
-      .joins("LEFT JOIN designation_types ON designation_types.id = designations.designation_type_id")
-      .joins("LEFT JOIN allocations ON allocations.protected_area_id = protected_areas.id")
-      .joins("LEFT JOIN users ON users.id = allocations.user_id")
-      .joins(:wdpa_releases)
-      .select("""DISTINCT
-        protected_areas.*,
-        countries.name as countries_name,
-        countries.iso3 as countries_iso3,
-        designations.name as design_name,
-        designation_types.name as design_type_name
-      """)
+    results = ProtectedArea.joins(:wdpa_releases)
+
+    if params[:search_type] == "country" || ["iso", "parent_iso"].include?(params[:sort])
+      results = results.joins(:countries)
+    end
+
+    if ["designation", "designation_type"].include?(params[:sort])
+      results = results.joins(designation: :designation_type)
+    end
 
     if params[:search_type] == "range"
       range = (params[:range_from]..params[:range_to])
@@ -26,6 +21,7 @@ module Search
     end
 
     if params[:search_type] == "allocator"
+      results = results.joins(allocation: :user)
       results = results.where(%q(concat(users.first_name, ' ', users.last_name) = ?), params[:allocator])
     end
 
@@ -36,6 +32,7 @@ module Search
       if type == :wdpa_ids
         results = results.where(wdpa_id: values)
       else
+        results = results.joins(:countries)
         results = results.where("lower(countries.name) IN (?)", values.map(&:downcase))
       end
     end

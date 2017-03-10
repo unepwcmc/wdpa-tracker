@@ -33,7 +33,15 @@ class SearchController < ApplicationController
 
   def sort collection, column, direction
     order = build_column(column) + " " + build_direction(direction)
-    collection.order(order)
+    select = build_select(column)
+
+    collection.order(order).select(select)
+  end
+
+  def build_select column
+    select = "DISTINCT protected_areas.*"
+    select << ", #{COLUMNS[column]} as extra_for_order" if column
+    select
   end
 
   def build_column column
@@ -41,6 +49,6 @@ class SearchController < ApplicationController
   end
 
   def build_direction direction
-    %w[asc desc].include?(direction) ? direction : "desc"
+    %w[asc desc].include?(direction) ? direction : "asc"
   end
 end
