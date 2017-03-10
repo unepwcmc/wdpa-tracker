@@ -15,16 +15,23 @@ end
 
 wdpa_release_files = Dir.glob("#{Rails.root.join("db/seeds/wdpa_releases")}/**/*.csv")
 
+all_ids = ProtectedArea.pluck(:wdpa_id, :id)
+ids_by_wdpa_ids = Hash[all_ids]
+
 wdpa_release_files.each do |release_file|
   release_name = File.basename(release_file, ".csv")
   released_at = DateTime.parse(release_name)
 
   if WdpaRelease.where(name: release_name).first.nil?
-    wdpa_ids = CSV.read(release_file).flatten
-    pas = ProtectedArea.where(wdpa_id: wdpa_ids)
-
     wdpa_release = WdpaRelease.create(name: release_name, created_at: released_at)
-    wdpa_release.protected_areas = pas
+
+    ProtectedAreasWdpaRelease.transaction do
+      CSV.foreach(release_file) do |row|
+        if id = ids_by_wdpa_ids[row.first.to_i]
+          ProtectedAreasWdpaRelease.create(wdpa_release_id: wdpa_release.id, protected_area_id: id)
+        end
+      end
+    end
   end
 end
 
