@@ -57,6 +57,15 @@
             </label>
           </div>
 
+          <div class="row">
+            <label for="role_id">
+              <p class="search__label">Role</p>
+              <div class="u-left form__select-container">
+                <%= f.select :role_id, Role.all.collect { |r| [ r.name, r.id ] }, {include_blank: true}, class: "search__input" %>
+              </div>
+            </label>
+          </div>
+
           <button class="big-button" type="submit">Create user</button>
           <a class="big-button big-button--alt-colors" href="<%= users_path %>">Cancel</a>
         <% end %>
