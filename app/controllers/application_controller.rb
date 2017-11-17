@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
     raise PageNotFound
   end
 
+  def render_404
+    head 404
+  end
+
   rescue_from PageNotFound do
     render_404
   end
