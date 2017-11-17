@@ -12,7 +12,8 @@ $ cd wdpa-tracker
 $ bundle install
 $ bundle exec rake db:create
 $ bundle exec rake db:migrate
-$ cp .env.example .env && edit .env
+$ cp .env.example .env && edit(or vim) .env
+$ rake bower:install
 ...
 $ bundle exec rails server
 ```
