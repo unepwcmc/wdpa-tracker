@@ -26,10 +26,20 @@ wdpa_release_files.each do |release_file|
     wdpa_release = WdpaRelease.create(name: release_name, created_at: released_at)
 
     ProtectedAreasWdpaRelease.transaction do
-      CSV.foreach(release_file) do |row|
-        if id = ids_by_wdpa_ids[row.first.to_i]
-          ProtectedAreasWdpaRelease.create(wdpa_release_id: wdpa_release.id, protected_area_id: id)
+      CSV.foreach(release_file, headers: true) do |row|
+        id = ids_by_wdpa_ids[row["wdpa_id"].to_i]
+        unless id
+          pa = ProtectedArea.new(wdpa_id: row["wdpa_id"].to_i, name: row["pa_name"])
+          pa.designation = Designation.find_or_create_by(name: row["designation"])
+          pa.designation.designation_type = DesignationType.find_or_create_by(name: row["designation_type"])
+          countries = row["countries"].split(',')
+          countries.each do |country|
+            pa.countries << Country.find_by_iso3(country)
+          end
+          pa.save
+          id = pa.id
         end
+        ProtectedAreasWdpaRelease.create(wdpa_release_id: wdpa_release.id, protected_area_id: id)
       end
     end
   end
