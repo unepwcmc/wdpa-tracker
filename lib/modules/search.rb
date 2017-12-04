@@ -1,7 +1,9 @@
 module Search
   def self.search params, only_public
     query   = ""
-    results = ProtectedArea.joins(:wdpa_releases)
+    results = ProtectedArea
+
+    results = results.joins(:wdpa_releases) unless params[:search_type]
 
     if params[:search_type] == "country" || ["iso", "parent_iso"].include?(params[:sort])
       results = results.joins(:countries)
