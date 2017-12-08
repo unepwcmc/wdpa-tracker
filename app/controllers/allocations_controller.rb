@@ -25,4 +25,15 @@ class AllocationsController < ApplicationController
 
     head 201
   end
+
+  def download
+    if current_user.role.name == "Admin"
+      send_data Allocation.to_csv, {
+                type: "text/csv; charset=iso-8859-1; header=present",
+                disposition: "attachment",
+                filename: "wdpa-tracker-allocations-#{Date.today}.csv" }
+    else
+      redirect_to root_path, notice: "Please request Admin rights to access this data"
+    end
+  end
 end
