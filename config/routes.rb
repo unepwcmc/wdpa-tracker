@@ -14,7 +14,9 @@ Rails.application.routes.draw do
 
   resources :countries, only: [:index]
   resources :users
-  resources :allocations
+  resources :allocations, only: [:index, :new, :create]
+
+  get '/allocations/download' => 'allocations#download'
 
   get '/search' => 'search#index'
   get '/:wdpa_id' => 'search#show', as: "protected_area"
