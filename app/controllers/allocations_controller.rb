@@ -1,5 +1,6 @@
 class AllocationsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_admin!, only: [:download]
 
   def index
   end
@@ -27,13 +28,17 @@ class AllocationsController < ApplicationController
   end
 
   def download
-    if current_user.role.name == "Admin"
-      send_data Allocation.to_csv, {
-                type: "text/csv; charset=iso-8859-1; header=present",
-                disposition: "attachment",
-                filename: "wdpa-tracker-allocations-#{Date.today}.csv" }
-    else
-      redirect_to root_path, notice: "Please request Admin rights to access this data"
+    send_data Allocation.to_csv, {
+              type: "text/csv; charset=iso-8859-1; header=present",
+              disposition: "attachment",
+              filename: "wdpa-tracker-allocations-#{Date.today}.csv" }
+  end
+
+  private
+
+  def authenticate_admin!
+    if current_user.role.name != "Admin"
+      redirect_to :root
     end
   end
 end
